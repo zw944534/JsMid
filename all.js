@@ -14,3 +14,28 @@ function BMI(height,weight){
     console.log(result);
 }
 BMI(175,70);
+
+//養工處有幾個案件 處理完成跟待處理加起來有幾個案件
+let xhr = new XMLHttpRequest();
+let newData;
+console.log(xhr);
+xhr.open("get","https://soweb.kcg.gov.tw/open1999/ServiceRequestsQuery.asmx/ServiceRequestsQuery?startdate=&enddate=");
+xhr.send();
+xhr.onload=function(){
+    // let textData = xhr.responseText;
+    // console.log(textData);
+    let jData = JSON.parse(xhr.responseText);
+    console.log(jData);
+    let numOfYon=0;
+    let totalNum=0;
+    for(let i=0;i<jData.length;i++){
+        if(jData[i].UnitName_=="養工處"){
+            numOfYon++;     
+        }
+        if(jData[i].StatusName_="待處理" || "處理完成"){
+            totalNum++;
+        }
+    }
+    console.log("養工處案件="+numOfYon);
+    console.log("處理完成跟待處理加起來="+totalNum);
+}
